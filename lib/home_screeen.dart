@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/add_update_screen.dart';
 import 'package:todo_list/db_handler.dart';
 import 'package:todo_list/model.dart';
 
@@ -24,9 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: const Drawer(),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'DP-TODO',
           style: TextStyle(
             fontSize: 18,
@@ -36,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
         elevation: 0,
-        actions: [
+        actions: const [
           Padding(
             padding: EdgeInsets.only(
               right: 10,
@@ -55,16 +56,16 @@ class _HomeScreenState extends State<HomeScreen> {
               future: dataList,
               builder: (context, AsyncSnapshot<List<TodoModel>> snapshot) {
                 if (!snapshot.hasData || snapshot.data == null) {
-                  return (Center(
+                  return (const Center(
                     child: CircularProgressIndicator(),
                   ));
                 } else if (snapshot.data!.length == 0) {
-                  return Center(
+                  return const Center(
                     child: Text(
                       'No Task Found.',
                       style: TextStyle(
                         fontSize: 25,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                         color: Colors.white,
                       ),
                     ),
@@ -78,6 +79,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               },
             ),
+          ),
+          FloatingActionButton(
+            backgroundColor: Colors.green,
+            child: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddUpdateTask(),
+                ),
+              );
+            },
           ),
         ],
       ),
